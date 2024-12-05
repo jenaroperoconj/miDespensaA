@@ -1,0 +1,81 @@
+<ion-content [fullscreen]="true" class="ion-no-padding">
+  <ion-header>
+    <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-searchbar placeholder="Buscar" style="margin-top: 10px;"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+  
+  <div *ngIf="loading">
+    <ion-spinner name="crescent" color="primary" class="loading-spinner"></ion-spinner>
+  </div>
+
+  <!-- Sección de Productos por Vencer -->
+  <div> 
+    <h2 style="font-weight: bold; margin-left: 10px;  text-align: center;">Productos prontos a vencer</h2>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-chip color="warning">
+            <ion-label>Yogurth - Vencimiento: 10/10/2024</ion-label>
+          </ion-chip>
+          <ion-chip color="warning">
+            <ion-label>Yogurth - Vencimiento: 10/10/2024</ion-label>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Listado de Recetas -->
+  <div *ngIf="!loading && !selectedRecipe" class="recipe-list">
+    <h2 class="title">Recetas Sugeridas</h2>
+    <ion-card *ngFor="let recipe of recipes" (click)="selectRecipe(recipe.id)">
+      <img [src]="recipe.image" alt="{{ recipe.title }}" class="recipe-image" />
+      <ion-card-header>
+        <ion-card-title>{{ recipe.title }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Ingredientes disponibles:</strong> {{ recipe.usedIngredients.length || 0 }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Detalle de la Receta Seleccionada -->
+  <div *ngIf="!loading && selectedRecipe" class="recipe-detail">
+    <ion-button expand="full" color="light" (click)="selectedRecipe = null">
+      <ion-icon name="arrow-back" slot="start"></ion-icon>
+      Volver a las Recetas
+    </ion-button>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ selectedRecipe.title }}</ion-card-title>
+      </ion-card-header>
+      <img [src]="selectedRecipe.image" alt="{{ selectedRecipe.title }}" class="recipe-detail-image" />
+      <ion-card-content>
+        <h3>Instrucciones</h3>
+        <ol>
+          <li *ngFor="let step of instructions">{{ step }}</li>
+        </ol>
+
+        <h3>Ingredientes que tienes</h3>
+        <ul class="ingredients-list available-ingredients">
+          <li *ngFor="let ingredient of availableIngredients">
+            <ion-icon name="checkmark-circle" color="success"></ion-icon> 
+            {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.unit }}
+          </li>
+        </ul>
+
+        <h3>Ingredientes que te faltan</h3>
+        <ul class="ingredients-list missing-ingredients">
+          <li *ngFor="let ingredient of missingIngredients">
+            <ion-icon name="close-circle" color="danger"></ion-icon>
+            {{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.unit }}
+          </li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <ion-card *ngIf="email">
+    <ion-card-header>
+      <ion-avatar slot="start">
+        <img [src]="photoURL" alt="Foto de perfil" />
+      </ion-avatar>
+      <ion-card-title>{{ displayName }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label>Correo electrónico:</ion-label>
+        <ion-note slot="end">{{ email }}</ion-note>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

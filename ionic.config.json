@@ -1,0 +1,7 @@
+{
+  "name": "miDespensa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

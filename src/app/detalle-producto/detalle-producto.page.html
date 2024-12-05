@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Detalle del Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Imagen del Producto -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <img *ngIf="productImage; else defaultImage" [src]="productImage" alt="Imagen del Producto" style="max-width: 100%; border-radius: 8px;" />
+    <ng-template #defaultImage>
+      <ion-icon name="image-outline" size="large" color="medium"></ion-icon>
+      <p>Sin imagen</p>
+    </ng-template>
+  </div>
+
+  <form [formGroup]="productForm" (ngSubmit)="guardarCambios()">
+    <ion-list lines="full">
+      <!-- Nombre del Producto -->
+      <ion-item>
+        <ion-label position="stacked">Nombre del Producto</ion-label>
+        <ion-input formControlName="nombre" placeholder="Ej: Leche"></ion-input>
+      </ion-item>
+
+      <!-- Marca del Producto -->
+      <ion-item>
+        <ion-label position="stacked">Marca</ion-label>
+        <ion-input formControlName="marca" placeholder="Ej: Colun"></ion-input>
+      </ion-item>
+
+      <!-- Cantidad del Producto -->
+      <ion-item>
+        <ion-label position="stacked">Cantidad</ion-label>
+        <ion-input type="number" formControlName="cantidad" min="1" placeholder="Ej: 10"></ion-input>
+      </ion-item>
+
+      <!-- Fecha de Vencimiento -->
+      <ion-item>
+        <ion-label position="stacked">Fecha de Vencimiento</ion-label>
+        <ion-datetime formControlName="fechaVencimiento" presentation="date" [min]="minDate"></ion-datetime>
+      </ion-item>
+
+      <!-- Categoría del Producto -->
+      <ion-item>
+        <ion-label position="stacked">Categoría</ion-label>
+        <ion-input formControlName="categoria" placeholder="Ej: Lácteos"></ion-input>
+      </ion-item>
+
+      <!-- SKU del Producto -->
+      <ion-item>
+        <ion-label position="stacked">SKU</ion-label>
+        <ion-input formControlName="sku" placeholder="Ej: SKU12345"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding">
+      <!-- Botón para guardar los cambios -->
+      <ion-button expand="block" color="success" type="submit" [disabled]="!productForm.valid">
+        Guardar Cambios
+      </ion-button>
+      
+      <!-- Botón para eliminar el producto -->
+      <ion-button expand="block" color="danger" (click)="eliminarProducto()">
+        Eliminar Producto
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

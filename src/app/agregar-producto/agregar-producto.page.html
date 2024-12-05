@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Agregar Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="productForm" (ngSubmit)="agregarProducto()">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label position="stacked">Nombre del Producto</ion-label>
+        <ion-input id="nombre" formControlName="nombre" type="text" placeholder="Ej: Leche" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Marca (Opcional)</ion-label>
+        <ion-input id="marca" formControlName="marca" type="text" placeholder="Ej: Colun"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Cantidad</ion-label>
+        <ion-input id="cantidad" formControlName="cantidad" type="number" placeholder="Ej: 10" min="1" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Fecha de Vencimiento</ion-label>
+        <ion-datetime id="fechaVencimiento" formControlName="fechaVencimiento" presentation="date" [min]="minDate" required></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Categoría (Opcional)</ion-label>
+        <ion-input id="categoria" formControlName="categoria" type="text" placeholder="Ej: Lácteos"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Código SKU (Opcional)</ion-label>
+        <ion-input id="sku" formControlName="sku" type="text" placeholder="Ej: SKU12345"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Imagen del Producto (Opcional)</ion-label>
+        <ion-button expand="block" (click)="openCamera()" color="tertiary">
+          <ion-icon slot="start" name="camera-outline"></ion-icon>
+          Capturar Imagen
+        </ion-button>
+        <img *ngIf="capturedImage" [src]="capturedImage" alt="Imagen capturada" style="margin-top: 10px; width: 100%; border-radius: 8px;">
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" [disabled]="!productForm.valid" color="success">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Agregar Producto
+      </ion-button>
+    </div>
+  </form>
+</ion-content>
